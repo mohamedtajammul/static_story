@@ -1,0 +1,131 @@
+section#about {
+    background-color: var(--bg-color);
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+    /* top: 5rem; */
+    /* margin-top: 5rem; */
+}
+
+.about-container {
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    width: 85%;
+    margin-top: 3rem;
+}
+
+.about-container--img {
+    flex: 1;
+
+    position: relative;
+}
+
+.about-container--img> h1 {
+    color: var(--primary-font-color);
+    font-size: calc(2rem + 2.5vw);
+
+    position: absolute;
+    top: -3rem;
+    left: 1rem;
+    z-index: 99999;
+}
+
+.about-container--img> div > img {
+    /* margin-top: -2rem; */
+
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+}
+
+.about-container--text {
+    flex: 1;
+}
+
+.about-container--text > h2 {
+    color: white;
+    font-size: var(--font-size-heading2);
+
+    position: relative;
+}
+
+.about-container--text>h2::after {
+    content: '';
+    position: absolute;
+    top: 110%;
+    left: 0;
+    height: 5px;
+    width: 25%;
+    background-color: var(--secondary-color);
+}
+
+.about-container--text > h1 {
+    color: var(--secondary-color);
+    font-size: var(--font-size-heading);
+    margin-top: 3rem;
+}
+
+.about-container--text > p {
+    color: white;
+    font-size: var(--font-size-para);
+    margin-top: 2rem;
+    width: 90%;
+}
+
+
+
+/* ------------------------------------------ width 1000px ------------------------------------------ */
+
+@media only screen and (max-width:1000px) {
+
+    section#about {
+        padding: 0rem 3rem;
+    }
+
+}
+
+/* ------------------------------------------ width 850px ------------------------------------------ */
+
+@media only screen and (max-width:850px) {
+
+    section#about {
+        padding:3rem 3rem;
+        height: 100vh;
+    }
+
+    .about-container {
+        flex-direction: column;
+        gap: 0rem;
+
+        width: 100%;
+    }
+
+    .about-container--img>h1 {
+        top: -1.5rem;
+    }
+
+    .about-container--text>h1 {
+        margin-top: 2rem;
+    }
+
+    .about-container--text>p {
+        margin-top: 1rem;
+    }
+
+    .about-container--img>div>img {
+        /* margin-top: -2rem; */
+
+        z-index: 9;
+        width: 100%;
+        height: 100%;
+    }
+
+
+}
