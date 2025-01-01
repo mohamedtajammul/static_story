@@ -40,38 +40,35 @@ section#services {
 .services-container>h3 {
     color: white;
     font-size: calc(1.2rem + 1.5vw);
-    /* left: 0; */
+    margin-bottom: 1rem;
 }
 
 .swiper {
     width: 80%;
 }
 
-
-.swiper-slide {
-    width: 70%;
-
-    display: 'flex';
-    justify-content: 'center';
-    align-items: 'center';
-}
-
 .swiper-slide--wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+    width: 80%;
+
+}
+
+.swiper-slide--wrapper > div {
+    width: 300px;
+    height: 300px;
+}
+
+.swiper-slide--wrapper>div>img {
+    width: 100%;
+    height: 100%;
+
 }
 
 .swiper-slide--wrapper > p {
     flex: 1;
     color: white;
     width: 70%;
-}
-
-.slides {
-    flex: 1;
-    width: auto;
-    height: auto;
-    display: flex;
-    justify-content: center;
 }
