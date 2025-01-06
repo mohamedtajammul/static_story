@@ -1,66 +1,107 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import '../styles/Services.css'
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import '../styles/Services.css';
 
 function Services() {
+    const services = [
+        {
+            title: "Web Development",
+            description: "Creating modern, responsive websites with cutting-edge technologies and best practices.",
+            image: "../assets/services11.png"
+        },
+        {
+            title: "UI/UX Design",
+            description: "Crafting beautiful and intuitive user interfaces that deliver exceptional user experiences.",
+            image: "../assets/services12.png"
+        },
+        {
+            title: "Digital Marketing",
+            description: "Driving growth through strategic digital marketing campaigns and analytics.",
+            image: "../assets/services13.png"
+        },
+        {
+            title: "Mobile Development",
+            description: "Building native and cross-platform mobile applications for iOS and Android.",
+            image: "../assets/services11.png"
+        }
+    ];
 
-  return (
-    <section className="services" id='services'>
-      <div className='services-container'>
-        <h1>What we do!</h1>
-        <h3>Experience the power of innovation.</h3>
-         <Swiper
-          modules={[Navigation, Pagination, Scrollbar, Autoplay,  A11y]}
-          spaceBetween={70}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-           autoplay={{
-            delay: 3000, // 3 seconds delay between slides
-            disableOnInteraction: false, // Keep autoplay after user interactions
-          }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
-        >
-          <SwiperSlide style={{display:'flex', justifyContent:'center'}}>
-            <div className='swiper-slide--wrapper'>
-              <div className='slides'><img src="../assets/services11.png" alt="" /></div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident ut esse ea dignissimos, amet molestias asperiores sed unde molestiae quaerat dolore nesciunt sint eos qui. Harum porro animi impedit fugit. Est natus doloremque officia in, suscipit ab ad corrupti facilis, dolore ullam obcaecati! Vero nemo voluptatem impedit vitae! Reprehenderit numquam est, ipsa explicabo mollitia, eligendi autem porro asperiores impedit aliquam iure odit modi quaerat illum, nesciunt nemo dolor iste ipsum. Necessitatibus provident mollitia eligendi eum tempore pariatur odit aliquam cumque sint! Exercitationem culpa hic perferendis repudiandae nobis sit doloribus esse, alias ratione excepturi sint? Nihil dolore impedit incidunt voluptate deleniti?</p>
-            </div>
-          </SwiperSlide>
-           <SwiperSlide style={{display:'flex', justifyContent:'center'}}>
-            <div className='swiper-slide--wrapper'>
-              <div className='slides'><img src="../assets/services12.png" alt="" /></div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident ut esse ea dignissimos, amet molestias asperiores sed unde molestiae quaerat dolore nesciunt sint eos qui. Harum porro animi impedit fugit. Est natus doloremque officia in, suscipit ab ad corrupti facilis, dolore ullam obcaecati! Vero nemo voluptatem impedit vitae! Reprehenderit numquam est, ipsa explicabo mollitia, eligendi autem porro asperiores impedit aliquam iure odit modi quaerat illum, nesciunt nemo dolor iste ipsum. Necessitatibus provident mollitia eligendi eum tempore pariatur odit aliquam cumque sint! Exercitationem culpa hic perferendis repudiandae nobis sit doloribus esse, alias ratione excepturi sint? Nihil dolore impedit incidunt voluptate deleniti?</p>
-            </div>
-          </SwiperSlide>
-           <SwiperSlide style={{display:'flex', justifyContent:'center'}}>
-            <div className='swiper-slide--wrapper'>
-              <div className='slides'><img src="../assets/services13.png" alt="" /></div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident ut esse ea dignissimos, amet molestias asperiores sed unde molestiae quaerat dolore nesciunt sint eos qui. Harum porro animi impedit fugit. Est natus doloremque officia in, suscipit ab ad corrupti facilis, dolore ullam obcaecati! Vero nemo voluptatem impedit vitae! Reprehenderit numquam est, ipsa explicabo mollitia, eligendi autem porro asperiores impedit aliquam iure odit modi quaerat illum, nesciunt nemo dolor iste ipsum. Necessitatibus provident mollitia eligendi eum tempore pariatur odit aliquam cumque sint! Exercitationem culpa hic perferendis repudiandae nobis sit doloribus esse, alias ratione excepturi sint? Nihil dolore impedit incidunt voluptate deleniti?</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide style={{display:'flex', justifyContent:'center'}}>
-            <div className='swiper-slide--wrapper'>
-              <div className='slides'><img src="../assets/services13.png" alt="" /></div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident ut esse ea dignissimos, amet molestias asperiores sed unde molestiae quaerat dolore nesciunt sint eos qui. Harum porro animi impedit fugit. Est natus doloremque officia in, suscipit ab ad corrupti facilis, dolore ullam obcaecati! Vero nemo voluptatem impedit vitae! Reprehenderit numquam est, ipsa explicabo mollitia, eligendi autem porro asperiores impedit aliquam iure odit modi quaerat illum, nesciunt nemo dolor iste ipsum. Necessitatibus provident mollitia eligendi eum tempore pariatur odit aliquam cumque sint! Exercitationem culpa hic perferendis repudiandae nobis sit doloribus esse, alias ratione excepturi sint? Nihil dolore impedit incidunt voluptate deleniti?</p>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-       
-      </div>
+    const scrollRef = useRef(null);
+    const [isPaused, setIsPaused] = useState(false);
+    const [hoverIndex, setHoverIndex] = useState(null);
 
-    </section>
-  );
+    useEffect(() => {
+        const scrollContainer = scrollRef.current;
+        if (!scrollContainer) return;
+
+        let animationFrameId;
+        const speed = 2;
+
+        const startScrolling = () => {
+            const scroll = () => {
+                if (!isPaused) {
+                    scrollContainer.scrollLeft += speed;
+                    if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+                        scrollContainer.scrollLeft = 0;
+                    }
+                }
+                animationFrameId = requestAnimationFrame(scroll);
+            };
+            scroll();
+        };
+
+        startScrolling();
+
+        return () => cancelAnimationFrame(animationFrameId);
+    }, [isPaused]);
+
+    return (
+        <section className="bg-gray-50 py-16 services" id="services">
+            <div className="container mx-auto px-4 services-container">
+                <h2 className="text-4xl font-bold mb-2">What We Do</h2>
+                <h3 className="text-xl text-gray-600 mb-12">Experience the power of innovation</h3>
+
+                {/* Infinite Scroll Container */}
+                <div
+                    ref={scrollRef}
+                    className="flex overflow-x-scroll gap-8 py-4 whitespace-nowrap scrollbar-hide"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                >
+                    {[...services, ...services].map((service, index) => (
+                        <div
+                            key={index}
+                            className="flex-none w-[300px] cursor-pointer"
+                            onMouseEnter={() => setHoverIndex(index)}
+                            onMouseLeave={() => setHoverIndex(null)}
+                        >
+                            <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+                                {/* Image Section */}
+                                <div className="relative h-48 overflow-hidden">
+                                    <img
+                                        src={service.image}
+                                        alt={service.title}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                </div>
+
+                                {/* Title Section */}
+                                <div className="p-6">
+                                    <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                                    
+                                    {/* Description (Only visible on hover) */}
+                                    <p className={`text-gray-600 transition-all duration-300 
+                                        ${hoverIndex === index ? 'opacity-100 max-h-[1000px]' : 'opacity-0 max-h-0'}`}>
+                                        {service.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 }
 
 export default Services;

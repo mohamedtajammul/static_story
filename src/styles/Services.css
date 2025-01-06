@@ -1,3 +1,14 @@
+/* Hide scrollbar for a cleaner look */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
 section#services {
     background-color: var(--bg-color);
     height: 100vh;
@@ -20,17 +31,17 @@ section#services {
     width: 85%;
 }
 
-.services-container > h1 {
+.services-container > h2 {
     color: var(--primary-font-color);
     font-size: calc(2rem + 2.5vw);
 
     position: relative;
 }
 
-.services-container > h1::after {
+.services-container > h2::after {
     content: '';
     position: absolute;
-    top: 90%;
+    top: 140%;
     left: 0;
     height: 5px;
     width: 15%;
@@ -39,36 +50,6 @@ section#services {
 
 .services-container>h3 {
     color: white;
-    font-size: calc(1.2rem + 1.5vw);
-    margin-bottom: 1rem;
-}
-
-.swiper {
-    width: 80%;
-}
-
-.swiper-slide--wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    width: 80%;
-
-}
-
-.swiper-slide--wrapper > div {
-    width: 300px;
-    height: 300px;
-}
-
-.swiper-slide--wrapper>div>img {
-    width: 100%;
-    height: 100%;
-
-}
-
-.swiper-slide--wrapper > p {
-    flex: 1;
-    color: white;
-    width: 70%;
+    font-size: calc(1rem + 1vw);
+    margin: 1rem 0;
 }
